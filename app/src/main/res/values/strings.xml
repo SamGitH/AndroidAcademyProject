@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">AndroidAcademyProject</string>
+    <string name="text_header">Нашёл. Увидел. Запилил</string>
+    <string name="text_main_text">Я был впечатлен представленным Google IO Motion Layout, поэтому решил изучить его в бою и рассказать о практическом использовании вам. Я пошел на Dribbble.com и выбрал понравившуюся анимацию. Теперь я сделаю все, чтобы реализовать ее, используя MotionLayout, и расскажу о фичах и проблемах аудитории.</string>
+    <string name="text_author">Константин Цховребов</string>
+    <string name="text_report">ВСЕ ДОКЛАДЫ</string>
+    <string name="text_android">Android</string>
+</resources>

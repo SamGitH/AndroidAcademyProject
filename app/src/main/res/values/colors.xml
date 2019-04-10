@@ -6,4 +6,7 @@
     <color name="orange">#d6430d</color>
     <color name="blue">#1841c7</color>
     <color name="white">#ffffff</color>
+    <color name="DarkOrchid">#9932CC</color>
+    <color name="Snow3">#CDC9C9</color>
+    <color name="trans">#00000000 </color>
 </resources>

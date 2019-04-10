@@ -5,4 +5,10 @@
     <string name="text_author">Константин Цховребов</string>
     <string name="text_report">ВСЕ ДОКЛАДЫ</string>
     <string name="text_android">Android</string>
+    <string name="aut_post">Старший разработчик в Redmadrobot</string>
+    <string name="aut_city">Санкт-Петербург, Россия</string>
+    <string name="aut_review">Константин окончил СПбГПУ, увлекался микроконтроллерами и схемотехникой. Он начал программировать под Android с момента выпуска версии 2.2. Сегодня Костя является архитектором петербургской команды Redmadrobot.</string>
+    <string name="text_time">17:45</string>
+    <string name="text_date">27 Ноября</string>
+    <string name="text_room">Аудитория 1</string>
 </resources>

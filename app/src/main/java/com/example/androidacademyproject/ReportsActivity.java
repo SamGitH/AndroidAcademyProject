@@ -12,13 +12,17 @@ import java.util.List;
 
 
 
-public class ReportsActivity extends Activity{
+public class ReportsActivity extends Activity {
     private final List<Report> reports = new ArrayList<>();
 
     private final ReportAdapter reportAdapter = new ReportAdapter(reports, new ReportAdapter.Listener() {
         @Override
-        public void onStudentClick(Report report) {
-            startActivity();
+        public void onReportClicked(Report report) {
+            startActivity(new Intent(ReportsActivity.this, ReportActivity.class ));
+        }
+        @Override
+        public void onAuthorClicked(Report report){
+            startActivity(new Intent(ReportsActivity.this, AuthorActivity.class ));
         }
     });
 
@@ -33,10 +37,6 @@ public class ReportsActivity extends Activity{
         recyclerView.setAdapter(reportAdapter);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
-    }
-
-    public void startActivity() {
-        startActivity(new Intent(this,MainActivity.class ));
     }
 
     private void generateReports(){

@@ -16,6 +16,6 @@
     </activity>
     <activity android:name=".AuthorActivity">
     </activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".ReportActivity"></activity>
     </application>
 </manifest>

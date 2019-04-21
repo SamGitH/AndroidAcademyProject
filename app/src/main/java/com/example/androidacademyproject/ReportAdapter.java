@@ -80,8 +80,8 @@ public class ReportAdapter extends  RecyclerView.Adapter<ReportAdapter.ReportVie
             headerTV.setText(report.getHeader());
             roomTV.setText(report.getRoom());
             platformTV.setText(report.getPlatform());
-            authorBT.setText(report.getAuthor());
-            informationTV.setText(report.getInformation());
+            authorBT.setText(report.getAuthor().getName());
+            informationTV.setText(report.getAuthor().getPost() + " " + report.getAuthor().getCity());
         }
 
     }

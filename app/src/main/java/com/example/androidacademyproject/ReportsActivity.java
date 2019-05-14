@@ -7,9 +7,12 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.example.androidacademyproject.NetworkModule.VenuesResponse;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
 
 
 public class ReportsActivity extends Activity {
@@ -60,6 +63,8 @@ public class ReportsActivity extends Activity {
 
         @Override
         protected Void doInBackground(Void... params) {
+            //Call<VenuesResponse> call = getApp().api.getVenues();
+
             Author author = new Author(R.drawable.images,"Ivan Vanko","Developer","Moscow, Russia","Some biography");
             reports.add(new Report("Web performance","Room 1","Android",author,"12:25","27 November","Some text"));
             return null;

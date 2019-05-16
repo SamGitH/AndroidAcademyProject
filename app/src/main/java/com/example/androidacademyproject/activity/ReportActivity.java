@@ -1,4 +1,4 @@
-package com.example.androidacademyproject;
+package com.example.androidacademyproject.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.androidacademyproject.R;
+import com.example.androidacademyproject.Report;
+import com.example.androidacademyproject.ReportsActivity;
 
 public class ReportActivity extends Activity implements View.OnClickListener{
 

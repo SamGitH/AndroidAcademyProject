@@ -13,6 +13,18 @@ public class Report implements Parcelable{
     private String time;
     private String date;
     private String text;
+    private String authorID;
+
+
+    public Report(String header, String room, String platform, String time, String date, String text, String authorID) {
+        this.header = header;
+        this.room = room;
+        this.platform = platform;
+        this.time = time;
+        this.date = date;
+        this.text = text;
+        this.authorID = authorID;
+    }
 
     public Report(String header, String room, String platform, Author author, String time, String date, String text) {
         this.header = header;
@@ -90,6 +102,14 @@ public class Report implements Parcelable{
 
     public String getText() {
         return text;
+    }
+
+    public String getAuthorID() {
+        return authorID;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
     }
 
 }

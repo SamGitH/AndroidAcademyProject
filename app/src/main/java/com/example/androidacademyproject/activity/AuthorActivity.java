@@ -1,8 +1,12 @@
-package com.example.androidacademyproject;
+package com.example.androidacademyproject.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import com.example.androidacademyproject.R;
+import com.example.androidacademyproject.Report;
+import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -40,7 +44,7 @@ public class AuthorActivity extends Activity {
     }
 
     private void createActivity(Report report){
-        avatarIV.setImageResource(report.getAuthor().getAvatar());
+        Picasso.get().load(report.getAuthor().getAvatar()).into(avatarIV);
         nameTV.setText(report.getAuthor().getName());
         postTV.setText(report.getAuthor().getPost());
         cityTV.setText(report.getAuthor().getCity());

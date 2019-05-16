@@ -5,22 +5,24 @@ import android.os.Parcelable;
 
 public class Author implements Parcelable {
 
-    private int avatar;
+    private String avatar;
     private String name;
     private String post;
     private String city;
     private String biography;
+    private String id;
 
-    public Author(int avatar, String name, String post, String city, String biography) {
+    public Author(String avatar, String name, String post, String city, String biography, String id) {
         this.avatar = avatar;
         this.name = name;
         this.post = post;
         this.city = city;
         this.biography = biography;
+        this.id = id;
     }
 
     public Author(Parcel in){
-        avatar = in.readInt();
+        avatar = in.readString();
         name = in.readString();
         post = in.readString();
         city = in.readString();
@@ -34,7 +36,7 @@ public class Author implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(avatar);
+        dest.writeString(avatar);
         dest.writeString(name);
         dest.writeString(post);
         dest.writeString(city);
@@ -54,7 +56,7 @@ public class Author implements Parcelable {
         }
     };
 
-    public int getAvatar() {
+    public String getAvatar() {
         return avatar;
     }
 
@@ -74,7 +76,11 @@ public class Author implements Parcelable {
         return biography;
     }
 
-    public void setAvatar(int avatar) {
+    public String getId() {
+        return id;
+    }
+
+    public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
 

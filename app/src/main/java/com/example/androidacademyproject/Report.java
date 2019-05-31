@@ -4,21 +4,29 @@ package com.example.androidacademyproject;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity
 public class Report implements Parcelable{
 
+    @NonNull
     @PrimaryKey
-    private String authorID;
     private String header;
     private String room;
     private String platform;
-    private Author author;
+    @ForeignKey(entity = Author.class,
+            parentColumns = "authorID",
+            childColumns = "id")
+    private String authorID;
     private String time;
     private String date;
     private String text;
+    @Ignore
+    private Author author;
 
     public Report(String header, String room, String platform, String time, String date, String text, String authorID) {
         this.header = header;
@@ -30,15 +38,6 @@ public class Report implements Parcelable{
         this.authorID = authorID;
     }
 
-    public Report(String header, String room, String platform, Author author, String time, String date, String text) {
-        this.header = header;
-        this.room = room;
-        this.platform = platform;
-        this.author = author;
-        this.time = time;
-        this.date = date;
-        this.text = text;
-    }
 
     public Report (Parcel in){
         header = in.readString();
@@ -116,4 +115,31 @@ public class Report implements Parcelable{
         this.author = author;
     }
 
+    public void setRoom(String room) {
+        this.room = room;
+    }
+
+    public void setPlatform(String platform) {
+        this.platform = platform;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setHeader(String header) {
+        this.header = header;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public void setAuthorID(String authorID) {
+        this.authorID = authorID;
+    }
 }

@@ -17,6 +17,7 @@ import com.example.androidacademyproject.model.Talk;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.functions.Consumer;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -116,7 +117,15 @@ public class ReportsActivity extends Activity {
     }
 
     private void restoreData(AppDatabase db){
-        reports = db.reportDao().getAll();
+        //reports = db.reportDao().getAll();
+        db.reportDao().getAll()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<List<Report>>() {
+                    @Override
+                    public void accept(List<Report> reports) throws Exception {
+
+                    }
+                });
         reportAdapter.notifyDataSetChanged();
     }
 

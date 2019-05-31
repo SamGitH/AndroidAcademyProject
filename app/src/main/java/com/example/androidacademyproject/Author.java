@@ -3,14 +3,21 @@ package com.example.androidacademyproject;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class Author implements Parcelable {
 
+    @NonNull
+    @PrimaryKey
+    private String id;
     private String avatar;
     private String name;
     private String post;
     private String city;
     private String biography;
-    private String id;
 
     public Author(String avatar, String name, String post, String city, String biography, String id) {
         this.avatar = avatar;
@@ -98,5 +105,9 @@ public class Author implements Parcelable {
 
     public void setBiography(String biography) {
         this.biography = biography;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

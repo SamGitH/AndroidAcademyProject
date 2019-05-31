@@ -4,17 +4,26 @@ import com.example.androidacademyproject.Report;
 
 import java.util.List;
 
+import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import io.reactivex.Flowable;
+import io.reactivex.Maybe;
 
+@Dao
 public interface ReportDao {
 
     @Query("SELECT * FROM report")
-    List<Report> getAll();
+    Flowable<List<Report>> getAll();
 
     @Insert
-    void insertAll(Report... reports);
+    Maybe<List<Report>> insertAll(Report... reports);
+    //@Query("SELECT * FROM report")
+    //List<Report> getAll();
+
+    //@Insert
+    //void insertAll(Report... reports);
 
     @Delete
     void delete(Report report);

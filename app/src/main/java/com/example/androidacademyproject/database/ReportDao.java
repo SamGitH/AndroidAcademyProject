@@ -10,12 +10,13 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import io.reactivex.Flowable;
 import io.reactivex.Maybe;
+import io.reactivex.Observable;
 
 @Dao
 public interface ReportDao {
 
     @Query("SELECT * FROM report")
-    Flowable<List<Report>> getAll();
+    Observable <List<Report>> getAll();
 
     @Insert
     Maybe<List<Report>> insertAll(Report... reports);

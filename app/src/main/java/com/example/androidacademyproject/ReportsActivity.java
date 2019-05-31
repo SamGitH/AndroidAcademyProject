@@ -11,13 +11,19 @@ import com.example.androidacademyproject.activity.AuthorActivity;
 import com.example.androidacademyproject.activity.ReportActivity;
 import com.example.androidacademyproject.database.AppDatabase;
 import com.example.androidacademyproject.model.DevfestModel;
+import com.example.androidacademyproject.model.Schedule;
 import com.example.androidacademyproject.model.Speaker;
 import com.example.androidacademyproject.model.Talk;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -118,7 +124,8 @@ public class ReportsActivity extends Activity {
 
     private void restoreData(AppDatabase db){
         //reports = db.reportDao().getAll();
-        db.reportDao().getAll()
+        Disposable subscribeReport = db.reportDao().getAll()
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<List<Report>>() {
                     @Override

@@ -52,6 +52,8 @@ public class ReportActivity extends Activity implements View.OnClickListener{
         dateTV.setText(report.getDate());
         headerTV.setText(report.getHeader());
         roomTV.setText(report.getRoom());
+        //if(report.getPlatform().equals("common"))
+        //    platformTV.setBackground(R.drawable.ic_rectangle_mediumorchid);
         platformTV.setText(report.getPlatform());
         nameBT.setText(report.getAuthor().getName());
         textTV.setText(report.getText());

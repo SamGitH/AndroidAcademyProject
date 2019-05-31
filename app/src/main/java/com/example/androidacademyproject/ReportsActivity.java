@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.example.androidacademyproject.activity.AuthorActivity;
 import com.example.androidacademyproject.activity.ReportActivity;
+import com.example.androidacademyproject.database.AppDatabase;
 import com.example.androidacademyproject.model.DevfestModel;
 import com.example.androidacademyproject.model.Speaker;
 import com.example.androidacademyproject.model.Talk;
@@ -23,8 +24,8 @@ import retrofit2.Response;
 
 public class ReportsActivity extends Activity {
 
-    private final List<Report> reports = new ArrayList<>();
-    private final List<Author> authors = new ArrayList<>();
+    private List<Report> reports = new ArrayList<>();
+    //private final List<Author> authors = new ArrayList<>();
     //AsyncReportsLoader loader = new AsyncReportsLoader();
 
     private final ReportAdapter reportAdapter = new ReportAdapter(reports, new ReportAdapter.Listener() {
@@ -50,24 +51,33 @@ public class ReportsActivity extends Activity {
         //generateReports();
         //loader.execute();
 
+        final AppDatabase db = AppDatabase.getAppDatabase(this);
+
+        restoreData(db);
         App.getDevfestService().getData().enqueue(new Callback<DevfestModel>() {
             @Override
             public void onResponse(Call<DevfestModel> call, Response<DevfestModel> response) {
                 List<Talk> talks = response.body().getSchedule().getTalks();
                 List<Speaker> speakers = response.body().getSpeakers();
+                List<Report> reports = new ArrayList<>();
+                List<Author> authors = new ArrayList<>();
+                db.reportDao().deleteAll();
 
                 for(Speaker speaker : speakers){
+                    String jobTitle;
+                    if(speaker.getJobTitle() == null && speaker.getId().equals("konstantin-tskhovrebov"))
+                        jobTitle = "Senior Developer";
+                    else
+                        jobTitle = speaker.getJobTitle();
                     authors.add(new Author(
                             speaker.getPhoto(),
                             speaker.getFirstName() + " " + speaker.getLastName(),
-                            speaker.getJobTitle() + ", " + speaker.getCompany(),
+                            jobTitle + ", " + speaker.getCompany(),
                             speaker.getLocation(),
                             speaker.getAbout(),
                             speaker.getId()
                     ));
                 }
-
-                //Author author = new Author(R.drawable.images, "Ivan Vanko", "Developer", "Moscow, Russia", "Some biography");
 
                 for(Talk talk : talks){
                     reports.add(new Report(
@@ -87,7 +97,8 @@ public class ReportsActivity extends Activity {
                             report.setAuthor(author);
                     }
                 }
-                reportAdapter.notifyDataSetChanged();
+                db.reportDao().insertAll(reports.toArray(new Report[reports.size()]));
+                //reportAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -96,10 +107,17 @@ public class ReportsActivity extends Activity {
             }
         });
 
+        restoreData(db);
+
         RecyclerView recyclerView = findViewById(R.id.activity_reports_rv);
         recyclerView.setAdapter(reportAdapter);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
+    }
+
+    private void restoreData(AppDatabase db){
+        reports = db.reportDao().getAll();
+        reportAdapter.notifyDataSetChanged();
     }
 
 //    private void generateReports(){

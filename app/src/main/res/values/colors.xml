@@ -9,4 +9,6 @@
     <color name="DarkOrchid">#9932CC</color>
     <color name="Snow3">#CDC9C9</color>
     <color name="trans">#00000000 </color>
+    <color name="DeepSkyBlue">#00BFFF</color>
+    <color name="MediumOrchid">#BA55D3</color>
 </resources>

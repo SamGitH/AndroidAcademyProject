@@ -4,8 +4,14 @@ package com.example.androidacademyproject;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class Report implements Parcelable{
 
+    @PrimaryKey
+    private String authorID;
     private String header;
     private String room;
     private String platform;
@@ -13,8 +19,6 @@ public class Report implements Parcelable{
     private String time;
     private String date;
     private String text;
-    private String authorID;
-
 
     public Report(String header, String room, String platform, String time, String date, String text, String authorID) {
         this.header = header;

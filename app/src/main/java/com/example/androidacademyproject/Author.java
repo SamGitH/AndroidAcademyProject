@@ -4,31 +4,28 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
 
-@Entity
 public class Author implements Parcelable {
 
     @NonNull
-    @PrimaryKey
-    private String id;
-    private String avatar;
-    private String name;
-    private String post;
-    private String city;
-    private String biography;
+    public final String id;
+    public final String avatar;
+    public final String name;
+    public final String post;
+    public final String city;
+    public final String biography;
 
-    public Author(String avatar, String name, String post, String city, String biography, String id) {
+    public Author(@NonNull String id, String avatar, String name, String post, String city, String biography) {
+        this.id = id;
         this.avatar = avatar;
         this.name = name;
         this.post = post;
         this.city = city;
         this.biography = biography;
-        this.id = id;
     }
 
-    public Author(Parcel in){
+    public Author(Parcel in) {
+        id = in.readString();
         avatar = in.readString();
         name = in.readString();
         post = in.readString();
@@ -43,6 +40,7 @@ public class Author implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
         dest.writeString(avatar);
         dest.writeString(name);
         dest.writeString(post);
@@ -62,52 +60,4 @@ public class Author implements Parcelable {
             return new Author[size];
         }
     };
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getPost() {
-        return post;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public String getBiography() {
-        return biography;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setPost(String post) {
-        this.post = post;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public void setBiography(String biography) {
-        this.biography = biography;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 }

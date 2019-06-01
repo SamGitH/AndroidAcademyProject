@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.example.androidacademyproject.R;
 import com.example.androidacademyproject.Report;
-import com.example.androidacademyproject.ReportsActivity;
 
 public class ReportActivity extends Activity implements View.OnClickListener{
 
@@ -48,15 +47,15 @@ public class ReportActivity extends Activity implements View.OnClickListener{
     }
 
     private void createActivity(Report report){
-        timeTV.setText(report.getTime());
-        dateTV.setText(report.getDate());
-        headerTV.setText(report.getHeader());
-        roomTV.setText(report.getRoom());
+        timeTV.setText(report.time);
+        dateTV.setText(report.date);
+        headerTV.setText(report.header);
+        roomTV.setText(report.room);
         //if(report.getPlatform().equals("common"))
         //    platformTV.setBackground(R.drawable.ic_rectangle_mediumorchid);
-        platformTV.setText(report.getPlatform());
-        nameBT.setText(report.getAuthor().getName());
-        textTV.setText(report.getText());
+        platformTV.setText(report.platform);
+        nameBT.setText(report.author.name);
+        textTV.setText(report.text);
     }
 
     @Override

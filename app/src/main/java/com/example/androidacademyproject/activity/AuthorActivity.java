@@ -44,14 +44,14 @@ public class AuthorActivity extends Activity {
     }
 
     private void createActivity(Report report){
-        Picasso.get().load(report.getAuthor().getAvatar()).into(avatarIV);
-        nameTV.setText(report.getAuthor().getName());
-        postTV.setText(report.getAuthor().getPost());
-        cityTV.setText(report.getAuthor().getCity());
-        biographyTV.setText(report.getAuthor().getBiography());
-        headerTV.setText(report.getHeader());
-        roomTV.setText(report.getRoom());
-        dateTV.setText(report.getDate());
-        timeTV.setText(report.getTime());
+//        Picasso.get().load(report.author.getAvatar()).into(avatarIV);
+//        nameTV.setText(report.getAuthor().getName());
+//        postTV.setText(report.getAuthor().getPost());
+//        cityTV.setText(report.getAuthor().getCity());
+//        biographyTV.setText(report.getAuthor().getBiography());
+//        headerTV.setText(report.getHeader());
+//        roomTV.setText(report.getRoom());
+//        dateTV.setText(report.getDate());
+//        timeTV.setText(report.getTime());
     }
 }

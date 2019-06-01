@@ -32,7 +32,7 @@ import retrofit2.Response;
 public class ReportsActivity extends Activity {
 
     private List<Report> reports = new ArrayList<>();
-    //private final List<Author> authors = new ArrayList<>();
+    private List<Author> authors = new ArrayList<>();
     //AsyncReportsLoader loader = new AsyncReportsLoader();
 
     private final ReportAdapter reportAdapter = new ReportAdapter(reports, new ReportAdapter.Listener() {
@@ -68,7 +68,7 @@ public class ReportsActivity extends Activity {
                 List<Speaker> speakers = response.body().getSpeakers();
                 List<Report> reports = new ArrayList<>();
                 List<Author> authors = new ArrayList<>();
-                db.reportDao().deleteAll();
+                //db.reportDao().deleteAll();
 
                 for(Speaker speaker : speakers){
                     String jobTitle;
@@ -98,13 +98,12 @@ public class ReportsActivity extends Activity {
                     ));
                 }
 
-                for (Report report : reports) {
-                    for (Author author : authors) {
-                        if (report.getAuthorID().equals(author.getId()))
-                            report.setAuthor(author);
-                    }
-                }
-                db.reportDao().insertAll(reports.toArray(new Report[reports.size()]));
+                Disposable subscribeReport = db.reportDao().insertAll(reports.toArray(new Report[reports.size()]))
+                        .subscribeOn(Schedulers.io())
+                        .subscribe();
+                Disposable subscribeAuthor = db.authorDao().insertAll(authors.toArray(new Author[authors.size()]))
+                        .subscribeOn(Schedulers.io())
+                        .subscribe();
                 //reportAdapter.notifyDataSetChanged();
             }
 
@@ -114,8 +113,6 @@ public class ReportsActivity extends Activity {
             }
         });
 
-        restoreData(db);
-
         RecyclerView recyclerView = findViewById(R.id.activity_reports_rv);
         recyclerView.setAdapter(reportAdapter);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
@@ -123,17 +120,38 @@ public class ReportsActivity extends Activity {
     }
 
     private void restoreData(AppDatabase db){
-        //reports = db.reportDao().getAll();
         Disposable subscribeReport = db.reportDao().getAll()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<List<Report>>() {
                     @Override
-                    public void accept(List<Report> reports) throws Exception {
-
+                    public void accept(List<Report> reportsGet) throws Exception {
+                        reports = reportsGet;
+                        for (Report report : reports) {
+                            for (Author author : authors) {
+                                if (report.getAuthorID().equals(author.getId()))
+                                    report.setAuthor(author);
+                            }
+                        }
+                        reportAdapter.notifyDataSetChanged();
                     }
                 });
-        reportAdapter.notifyDataSetChanged();
+        Disposable subscribeAuthor = db.authorDao().getAll()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<List<Author>>() {
+                    @Override
+                    public void accept(List<Author> authorsGet) throws Exception {
+                        authors = authorsGet;
+                        for (Report report : reports) {
+                            for (Author author : authors) {
+                                if (report.getAuthorID().equals(author.getId()))
+                                    report.setAuthor(author);
+                            }
+                        }
+                        reportAdapter.notifyDataSetChanged();
+                    }
+                });
     }
 
 //    private void generateReports(){

@@ -18,9 +18,9 @@ public class Report implements Parcelable{
     private String header;
     private String room;
     private String platform;
-    @ForeignKey(entity = Author.class,
-            parentColumns = "authorID",
-            childColumns = "id")
+    //@ForeignKey(entity = Author.class,
+    //        parentColumns = "authorID",
+    //        childColumns = "id")
     private String authorID;
     private String time;
     private String date;

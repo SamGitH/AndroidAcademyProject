@@ -19,7 +19,7 @@ public interface ReportDao {
     Observable <List<Report>> getAll();
 
     @Insert
-    Maybe<List<Report>> insertAll(Report... reports);
+    Observable <List<Report>> insertAll(Report... reports);
     //@Query("SELECT * FROM report")
     //List<Report> getAll();
 

@@ -1,6 +1,6 @@
 package com.example.androidacademyproject.network;
 
-import com.example.androidacademyproject.model.DevfestModel;
+import com.example.androidacademyproject.network.model.DevfestModel;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

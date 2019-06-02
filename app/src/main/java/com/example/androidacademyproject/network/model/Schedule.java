@@ -1,4 +1,4 @@
-package com.example.androidacademyproject.model;
+package com.example.androidacademyproject.network.model;
 
 import java.util.List;
 

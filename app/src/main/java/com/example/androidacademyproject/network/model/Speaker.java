@@ -1,4 +1,4 @@
-package com.example.androidacademyproject.model;
+package com.example.androidacademyproject.network.model;
 
 public class Speaker {
 

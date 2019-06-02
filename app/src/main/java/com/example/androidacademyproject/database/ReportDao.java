@@ -1,6 +1,7 @@
 package com.example.androidacademyproject.database;
 
 import com.example.androidacademyproject.Report;
+import com.example.androidacademyproject.database.model.ReportDB;
 
 import java.util.List;
 
@@ -8,27 +9,23 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
-import io.reactivex.Flowable;
-import io.reactivex.Maybe;
+import io.reactivex.Completable;
 import io.reactivex.Observable;
+
+import static androidx.room.OnConflictStrategy.REPLACE;
 
 @Dao
 public interface ReportDao {
 
-    @Query("SELECT * FROM report")
-    Observable <List<Report>> getAll();
+    @Query("SELECT * FROM reportdb")
+    Observable <List<ReportDB>> getAll();
 
-    @Insert
-    Observable <List<Report>> insertAll(Report... reports);
-    //@Query("SELECT * FROM report")
-    //List<Report> getAll();
-
-    //@Insert
-    //void insertAll(Report... reports);
+    @Insert(onConflict = REPLACE)
+    Completable insertAll(List <ReportDB> reports);
 
     @Delete
-    void delete(Report report);
+    Completable delete(ReportDB report);
 
-    @Query("DELETE FROM report")
-    void deleteAll();
+    @Query("DELETE FROM reportdb")
+    Completable deleteAll();
 }

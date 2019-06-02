@@ -1,7 +1,6 @@
 package com.example.androidacademyproject.database;
 
-import com.example.androidacademyproject.Author;
-import com.example.androidacademyproject.Report;
+import com.example.androidacademyproject.database.model.AuthorDB;
 
 import java.util.List;
 
@@ -9,26 +8,23 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
-import io.reactivex.Maybe;
+import io.reactivex.Completable;
 import io.reactivex.Observable;
+
+import static androidx.room.OnConflictStrategy.REPLACE;
 
 @Dao
 public interface AuthorDao {
 
-    @Query("SELECT * FROM report")
-    Observable <List<Author>> getAll();
+    @Query("SELECT * FROM authordb")
+    Observable <List<AuthorDB>> getAll();
 
-    @Insert
-    Observable <List<Author>> insertAll(Author... authors);
-    //@Query("SELECT * FROM author")
-    //List<Author> getAll();
-
-    //@Insert
-    //void insertAll(Author... authors);
+    @Insert (onConflict = REPLACE)
+    Completable insertAll(List <AuthorDB> authors);
 
     @Delete
-    void delete(Author author);
+    Completable delete(AuthorDB author);
 
-    @Query("DELETE FROM author")
-    void deleteAll();
+    @Query("DELETE FROM authordb")
+    Completable deleteAll();
 }

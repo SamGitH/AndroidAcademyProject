@@ -4,38 +4,32 @@ package com.example.androidacademyproject;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import androidx.annotation.NonNull;
-import androidx.room.Entity;
-import androidx.room.ForeignKey;
-import androidx.room.Ignore;
-import androidx.room.PrimaryKey;
+import com.example.androidacademyproject.database.model.AuthorDB;
+import com.example.androidacademyproject.database.model.ReportDB;
 
-@Entity
+import androidx.annotation.NonNull;
+
 public class Report implements Parcelable{
 
     @NonNull
-    @PrimaryKey
-    private String header;
-    private String room;
-    private String platform;
-    //@ForeignKey(entity = Author.class,
-    //        parentColumns = "authorID",
-    //        childColumns = "id")
-    private String authorID;
-    private String time;
-    private String date;
-    private String text;
-    @Ignore
-    private Author author;
+    public final String header;
+    public final String room;
+    public final String platform;
+    public final String time;
+    public final String date;
+    public final String text;
 
-    public Report(String header, String room, String platform, String time, String date, String text, String authorID) {
+    @NonNull
+    public final Author author;
+
+    public Report(String header, String room, String platform, String time, String date, String text, Author author) {
         this.header = header;
         this.room = room;
         this.platform = platform;
         this.time = time;
         this.date = date;
         this.text = text;
-        this.authorID = authorID;
+        this.author = author;
     }
 
 
@@ -43,10 +37,10 @@ public class Report implements Parcelable{
         header = in.readString();
         room = in.readString();
         platform = in.readString();
-        author = in.readParcelable(Author.class.getClassLoader());
         time = in.readString();
         date = in.readString();
         text = in.readString();
+        author = in.readParcelable(Author.class.getClassLoader());
 
     }
 
@@ -60,10 +54,10 @@ public class Report implements Parcelable{
         dest.writeString(header);
         dest.writeString(room);
         dest.writeString(platform);
-        dest.writeParcelable(author, 0);
         dest.writeString(time);
         dest.writeString(date);
         dest.writeString(text);
+        dest.writeParcelable(author, 0);
     }
 
     public static final Parcelable.Creator<Report> CREATOR = new Parcelable.Creator<Report>() {
@@ -79,67 +73,21 @@ public class Report implements Parcelable{
         }
     };
 
-    public String getHeader() {
-        return header;
+    public static Report reportDBtoReport (ReportDB reportDB, AuthorDB authorDB){
+        Author author = new Author(authorDB.id,
+                authorDB.avatar,
+                authorDB.name,
+                authorDB.post,
+                authorDB.city,
+                authorDB.biography);
+        Report report = new Report(reportDB.header,
+                reportDB.room,
+                reportDB.platform,
+                reportDB.time,
+                reportDB.date,
+                reportDB.text,
+                author);
+        return report;
     }
 
-    public String getRoom() {
-        return room;
-    }
-
-    public String getPlatform() {
-        return platform;
-    }
-
-    public Author getAuthor() {
-        return author;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public String getAuthorID() {
-        return authorID;
-    }
-
-    public void setAuthor(Author author) {
-        this.author = author;
-    }
-
-    public void setRoom(String room) {
-        this.room = room;
-    }
-
-    public void setPlatform(String platform) {
-        this.platform = platform;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public void setHeader(String header) {
-        this.header = header;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public void setAuthorID(String authorID) {
-        this.authorID = authorID;
-    }
 }

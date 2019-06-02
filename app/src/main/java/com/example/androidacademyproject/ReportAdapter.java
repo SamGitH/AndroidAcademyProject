@@ -33,7 +33,7 @@ public class ReportAdapter extends  RecyclerView.Adapter<ReportAdapter.ReportVie
         viewHolder.bind(report);
     }
 
-    interface Listener{
+    public interface Listener{
         void onReportClicked(Report report);
         void onAuthorClicked(Report report);
     }
@@ -77,11 +77,11 @@ public class ReportAdapter extends  RecyclerView.Adapter<ReportAdapter.ReportVie
 
         private void bind(@NonNull Report report) {
             this.report = report;
-            headerTV.setText(report.getHeader());
-            roomTV.setText(report.getRoom());
-            platformTV.setText(report.getPlatform());
-            authorBT.setText(report.getAuthor().getName());
-            informationTV.setText(report.getAuthor().getPost() + " " + report.getAuthor().getCity());
+            headerTV.setText(report.header);
+            roomTV.setText(report.room);
+            platformTV.setText(report.platform);
+            authorBT.setText(report.author.name);
+            informationTV.setText(report.author.post + " " + report.author.city);
         }
 
     }

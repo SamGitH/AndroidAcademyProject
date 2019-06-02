@@ -2,14 +2,14 @@ package com.example.androidacademyproject.database;
 
 import android.content.Context;
 
-import com.example.androidacademyproject.Author;
-import com.example.androidacademyproject.Report;
+import com.example.androidacademyproject.database.model.AuthorDB;
+import com.example.androidacademyproject.database.model.ReportDB;
 
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {Report.class, Author.class}, version = 1)
+@Database(entities = {ReportDB.class, AuthorDB.class}, version = 1)
 
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -17,6 +17,7 @@ public abstract class AppDatabase extends RoomDatabase {
     private static final String DATABASE_NAME = "reports.db";
     public abstract ReportDao reportDao();
     public abstract AuthorDao authorDao();
+    public abstract ReportWithAuthorsDao reportWithAuthorsDao();
 
     public static AppDatabase getAppDatabase(Context context) {
         if (singleton == null) {

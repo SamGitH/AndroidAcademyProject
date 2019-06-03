@@ -74,13 +74,15 @@ public class Report implements Parcelable{
     };
 
     public static Report reportDBtoReport (ReportDB reportDB, AuthorDB authorDB){
-        Author author = new Author(authorDB.id,
+        Author author = new Author(
+                authorDB.id,
                 authorDB.avatar,
                 authorDB.name,
                 authorDB.post,
                 authorDB.city,
                 authorDB.biography);
-        Report report = new Report(reportDB.header,
+        Report report = new Report(
+                reportDB.header,
                 reportDB.room,
                 reportDB.platform,
                 reportDB.time,

@@ -118,14 +118,17 @@ public class ReportsActivity extends Activity {
     }
 
     private void restoreData(){
+
         App.getDb().reportWithAuthorsDao().loadReportsWithAuthors()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMapObservable(list -> Observable.fromIterable(list))
+                .flatMap(list -> Observable.fromIterable(list))
                 .doOnNext(item -> {
                     reports.add(Report.reportDBtoReport(item.report, item.author.get(0)));
+                    reportAdapter.notifyDataSetChanged();
                 })
                 .subscribe();
+
     }
 
     /*

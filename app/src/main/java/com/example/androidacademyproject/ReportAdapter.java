@@ -12,7 +12,7 @@ import java.util.List;
 
 public class ReportAdapter extends  RecyclerView.Adapter<ReportAdapter.ReportViewHolder>{
 
-    private final List<Report> reports ;
+    private List<Report> reports ;
     private final Listener onReportClickListener;
 
     public ReportAdapter(List<Report> reports, Listener onReportClickListener) {
@@ -31,6 +31,10 @@ public class ReportAdapter extends  RecyclerView.Adapter<ReportAdapter.ReportVie
     public void onBindViewHolder(@NonNull ReportViewHolder viewHolder, int i) {
         Report report = reports.get(i);
         viewHolder.bind(report);
+    }
+
+    public void setReports(List<Report> reports) {
+        this.reports = reports;
     }
 
     public interface Listener{

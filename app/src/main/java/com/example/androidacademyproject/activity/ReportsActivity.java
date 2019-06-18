@@ -3,8 +3,10 @@ package com.example.androidacademyproject.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.Log;
 
 import com.example.androidacademyproject.App;
@@ -33,19 +35,20 @@ import retrofit2.Response;
 
 public class ReportsActivity extends Activity {
 
-    private List<Report> reports = new ArrayList<>();
+    //private List<Report> reports = new ArrayList<>();
     //private List<Author> authors = new ArrayList<>();
     //AsyncReportsLoader loader = new AsyncReportsLoader();
 
-    private final ReportAdapter reportAdapter = new ReportAdapter(reports, new ReportAdapter.Listener() {
+    private final ReportAdapter reportAdapter = new ReportAdapter(new ArrayList<>(), new ReportAdapter.Listener() {
         @Override
         public void onReportClicked(Report report) {
             Intent intent = new Intent(ReportsActivity.this, ReportActivity.class);
             intent.putExtra("Report", report);
             startActivity(intent);
         }
+
         @Override
-        public void onAuthorClicked(Report report){
+        public void onAuthorClicked(Report report) {
             Intent intent = new Intent(ReportsActivity.this, AuthorActivity.class);
             intent.putExtra("Author", report);
             startActivity(intent);
@@ -53,7 +56,7 @@ public class ReportsActivity extends Activity {
     });
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reports);
 
@@ -68,16 +71,16 @@ public class ReportsActivity extends Activity {
         recyclerView.setLayoutManager(mLayoutManager);
     }
 
-    private void loadFromWebAndPutToDB(){
+    private void loadFromWebAndPutToDB() {
         App.getDevfestService().getData().enqueue(new Callback<DevfestModel>() {
             @Override
             public void onResponse(Call<DevfestModel> call, Response<DevfestModel> response) {
                 List<ReportDB> reports = new ArrayList<>();
                 List<AuthorDB> authors = new ArrayList<>();
 
-                for(Speaker speaker : response.body().getSpeakers()){
+                for (Speaker speaker : response.body().getSpeakers()) {
                     String jobTitle;
-                    if(speaker.getJobTitle() == null && speaker.getId().equals("konstantin-tskhovrebov"))
+                    if (speaker.getJobTitle() == null && speaker.getId().equals("konstantin-tskhovrebov"))
                         jobTitle = "Senior Developer";
                     else
                         jobTitle = speaker.getJobTitle();
@@ -91,7 +94,7 @@ public class ReportsActivity extends Activity {
                     ));
                 }
 
-                for(Talk talk : response.body().getSchedule().getTalks()){
+                for (Talk talk : response.body().getSchedule().getTalks()) {
                     reports.add(new ReportDB(
                             0,
                             talk.getTitle(),
@@ -105,11 +108,16 @@ public class ReportsActivity extends Activity {
                 }
 
                 Completable.mergeArray(
-                        App.getDb().authorDao().insertAll(authors),
-                        App.getDb().reportDao().insertAll(reports)
+                        App.getDb().authorDao().deleteAll(),
+                        App.getDb().reportDao().deleteAll()
                 ).subscribeOn(Schedulers.io())
+                        .andThen(Completable.mergeArray(
+                                App.getDb().authorDao().insertAll(authors),
+                                App.getDb().reportDao().insertAll(reports)
+                        ))
                         .subscribe();
             }
+
             @Override
             public void onFailure(Call<DevfestModel> call, Throwable t) {
                 Log.d("TAG", "DONE");
@@ -117,18 +125,22 @@ public class ReportsActivity extends Activity {
         });
     }
 
-    private void restoreData(){
+    private void restoreData() {
 
         App.getDb().reportWithAuthorsDao().loadReportsWithAuthors()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(list -> Observable.fromIterable(list))
-                .doOnNext(item -> {
-                    reports.add(Report.reportDBtoReport(item.report, item.author.get(0)));
+                .doOnNext(list -> {
+                    Log.d("dd", "gg");
+                })
+                .flatMap(Observable::fromIterable)
+                .map(item -> Report.reportDBtoReport(item.report, item.author.get(0)))
+                .toList()
+                .doOnSuccess(reports -> {
+                    reportAdapter.setReports(reports);
                     reportAdapter.notifyDataSetChanged();
                 })
                 .subscribe();
-
     }
 
     /*

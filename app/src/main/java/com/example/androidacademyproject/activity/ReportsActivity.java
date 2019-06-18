@@ -133,13 +133,15 @@ public class ReportsActivity extends Activity {
                 .doOnNext(list -> {
                     Log.d("dd", "gg");
                 })
-                .flatMap(Observable::fromIterable)
-                .map(item -> Report.reportDBtoReport(item.report, item.author.get(0)))
-                .toList()
-                .doOnSuccess(reports -> {
-                    reportAdapter.setReports(reports);
-                    reportAdapter.notifyDataSetChanged();
-                })
+                .flatMapCompletable(reportsDb -> Observable.fromIterable(reportsDb)
+                        .map(item -> Report.reportDBtoReport(item.report, item.author.get(0)))
+                        .toList()
+                        .doOnSuccess(reports -> {
+                            reportAdapter.setReports(reports);
+                            reportAdapter.notifyDataSetChanged();
+                        })
+                        .ignoreElement()
+                )
                 .subscribe();
     }
 

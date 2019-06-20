@@ -1,6 +1,7 @@
 package com.example.androidacademyproject.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.androidacademyproject.R;
 import com.example.androidacademyproject.Report;
+import com.example.androidacademyproject.ReportAdapter;
 import com.example.androidacademyproject.fragments.AuthorFragment;
 import com.squareup.picasso.Picasso;
 
@@ -21,6 +23,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class AuthorActivity extends FragmentActivity implements View.OnClickListener{
 
     private static final int BUT_PUSH = R.id.aut_but_push;
+
+    private static final String AUTHOR_KEY = "Author";
 
     private CircleImageView avatarIV;
     private TextView nameTV;
@@ -32,20 +36,33 @@ public class AuthorActivity extends FragmentActivity implements View.OnClickList
     private TextView dateTV;
     private TextView timeTV;
 
+    public static void start(Context context, Report report) {
+        Intent intent = new Intent(context, AuthorActivity.class);
+        intent.putExtra(AUTHOR_KEY, report);
+        context.startActivity(intent);
+    }
+
 
 //    FragmentTransaction ft = getSupportFragmentManager()
 
     @Override
     protected void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+
+
+
         setContentView(R.layout.activity_author);
         findViewById(BUT_PUSH).setOnClickListener(this);
         findViews();
-        Report report = getIntent().getParcelableExtra("Author");
+
+        Report report = getIntent().getParcelableExtra(AUTHOR_KEY);
+
         createActivity(report);
 
 //        getFragmentManager().findFragmentById(R.id.aut_fragment);
+//        AuthorFragment fragment = AuthorFragment.createInstance("TEXT");
         AuthorFragment fragment = new AuthorFragment();
+
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.activity_main_frame, fragment)

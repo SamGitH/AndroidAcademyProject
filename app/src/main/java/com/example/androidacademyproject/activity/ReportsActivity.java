@@ -3,21 +3,14 @@ package com.example.androidacademyproject.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 
 import com.example.androidacademyproject.App;
-import com.example.androidacademyproject.Author;
 import com.example.androidacademyproject.R;
 import com.example.androidacademyproject.Report;
 import com.example.androidacademyproject.ReportAdapter;
-import com.example.androidacademyproject.database.AppDatabase;
 import com.example.androidacademyproject.database.model.AuthorDB;
 import com.example.androidacademyproject.database.model.ReportDB;
-import com.example.androidacademyproject.fragments.AuthorFragment;
 import com.example.androidacademyproject.network.model.DevfestModel;
 import com.example.androidacademyproject.network.model.Speaker;
 import com.example.androidacademyproject.network.model.Talk;
@@ -25,6 +18,8 @@ import com.example.androidacademyproject.network.model.Talk;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -50,9 +45,7 @@ public class ReportsActivity extends Activity {
 
         @Override
         public void onAuthorClicked(Report report) {
-            Intent intent = new Intent(ReportsActivity.this, AuthorActivity.class);
-            intent.putExtra("Author", report);
-            startActivity(intent);
+            AuthorActivity.start(ReportsActivity.this, report);
         }
     });
 

@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.androidacademyproject.R;
 import com.example.androidacademyproject.Report;
+import com.example.androidacademyproject.fragments.AuthorFragment;
 
 public class ReportActivity extends Activity implements View.OnClickListener{
 
@@ -23,7 +24,6 @@ public class ReportActivity extends Activity implements View.OnClickListener{
     private TextView platformTV;
     private Button nameBT;
     private TextView textTV;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

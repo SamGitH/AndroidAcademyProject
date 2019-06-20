@@ -17,6 +17,7 @@ import com.example.androidacademyproject.ReportAdapter;
 import com.example.androidacademyproject.database.AppDatabase;
 import com.example.androidacademyproject.database.model.AuthorDB;
 import com.example.androidacademyproject.database.model.ReportDB;
+import com.example.androidacademyproject.fragments.AuthorFragment;
 import com.example.androidacademyproject.network.model.DevfestModel;
 import com.example.androidacademyproject.network.model.Speaker;
 import com.example.androidacademyproject.network.model.Talk;

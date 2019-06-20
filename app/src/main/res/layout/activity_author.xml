@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    android:id="@+id/aut_sv"
+<ScrollView android:id="@+id/aut_sv"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/Snow3"
-    >
+    xmlns:tools="http://schemas.android.com/tools">
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     >
 
@@ -150,6 +148,8 @@
         app:layout_constraintTop_toBottomOf="@id/aut_tv_room"
         />
 
+
+
     <TextView
         android:id="@+id/aut_tv_time"
         android:layout_width="0dp"
@@ -178,5 +178,25 @@
         app:layout_constraintBottom_toBottomOf="@id/aut_tv_time"
         />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/aut_but_push"
+        style="@style/Widget.MaterialComponents.Button.Icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:icon="@drawable/ic_star_black_24dp"
+        app:iconSize="32dp"
+        app:iconGravity="textEnd"
+        app:backgroundTint="@color/blue"
+        android:backgroundTintMode="screen"
+        app:layout_constraintTop_toTopOf="@id/aut_tv_date"
+        app:layout_constraintStart_toEndOf="@id/aut_tv_date"
+        app:layout_constraintBottom_toBottomOf="@id/aut_tv_date"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+    <FrameLayout
+        android:id="@+id/activity_main_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
 </ScrollView>
